@@ -1,0 +1,13 @@
+// export 'ui/screens/quotes_screen.dart';
+// export 'ui/widgets/new_quotes.dart';
+// export 'data/model/quote.dart';
+// export 'ui/widgets/pagination_footer.dart';
+// export 'ui/widgets/quote_more_detail_card.dart';
+// export 'ui/widgets/quote_detail_card.dart';
+// export 'ui/widgets/quote_data_widget.dart';
+// export 'ui/widgets/assigned_quote_section.dart';
+// export 'ui/widgets/quote_detail_section.dart';
+// export 'ui/bloc/quote/quotes_bloc.dart';
+// export 'data/repository/quotes_repository.dart';
+// export 'data/data_provider/quotes_data_provider.dart';
+// export 'ui/screens/edit_quote.dart';

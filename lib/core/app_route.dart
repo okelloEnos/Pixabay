@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pixabay_web/features/dashboard/dashboard.dart';
 import 'package:pixabay_web/features/dashboard/home_page.dart';
+import 'package:pixabay_web/features/gallery/gallery_page.dart';
+import 'package:pixabay_web/features/profile/profile_page.dart';
 
 import 'pages/routing_error_page.dart';
 import 'widgets/app_custom_animation_page_builder.dart';
@@ -87,16 +89,16 @@ final GoRouter appRouter = GoRouter(
                         //               PageTransitionType.rightToLeft,
                         //           child: const SearchPage()),
                         // ),
-                        // GoRoute(
-                        //     path: 'products',
-                        //     name: 'products',
-                        //     pageBuilder: (context, state) =>
-                        //         pageBuilderWithTransition(
-                        //             context: context,
-                        //             state: state,
-                        //             duration: 350,
-                        //             transitionType: PageTransitionType.fade,
-                        //             child: const ProductsPage()),
+                        GoRoute(
+                            path: 'gallery',
+                            name: 'gallery',
+                            pageBuilder: (context, state) =>
+                                pageBuilderWithTransition(
+                                    context: context,
+                                    state: state,
+                                    duration: 350,
+                                    transitionType: PageTransitionType.fade,
+                                    child: const GalleryPage()),),
                         //     routes: [
                         //       //  pension portal web
                         //       GoRoute(
@@ -180,17 +182,17 @@ final GoRouter appRouter = GoRouter(
                         //         },
                         //       ),
                         //     ]),
-                        // GoRoute(
-                        //   path: 'discover',
-                        //   name: 'discover',
-                        //   pageBuilder: (context, state) =>
-                        //       pageBuilderWithTransition(
-                        //           context: context,
-                        //           state: state,
-                        //           duration: 350,
-                        //           transitionType: PageTransitionType.fade,
-                        //           child: const DiscoverPage()),
-                        // ),
+                        GoRoute(
+                          path: 'profile',
+                          name: 'profile',
+                          pageBuilder: (context, state) =>
+                              pageBuilderWithTransition(
+                                  context: context,
+                                  state: state,
+                                  duration: 350,
+                                  transitionType: PageTransitionType.fade,
+                                  child: const ProfilePage()),
+                        ),
                         // GoRoute(
                         //   path: 'activity',
                         //   name: 'activity',
