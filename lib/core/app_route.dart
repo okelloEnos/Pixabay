@@ -13,7 +13,7 @@ import 'widgets/app_custom_animation_page_builder.dart';
 
 /// app route configuration
 final GoRouter appRouter = GoRouter(
-  initialLocation: "/home/gallery",
+  initialLocation: "/home/profile",
   redirect: (context, state) {
     //
     // final Uri uri = Uri.base;
