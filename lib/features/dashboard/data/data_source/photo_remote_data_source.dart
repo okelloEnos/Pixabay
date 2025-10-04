@@ -12,7 +12,7 @@ class PhotoRemoteDataSourceImpl implements PhotoRemoteDataSource {
 
   @override
   Future<List<dynamic>> fetchPhotos({required String? query, required int? page, required int? perPage}) async {
-    var url = "${Api.pixabayBaseUrl}/?key=${Api.accessKey}&q=$query&page=$page&per_page=$perPage";
+    var url = "${Api.pixabayBaseUrl}/api/?key=${Api.accessKey}&q=$query&page=$page&per_page=$perPage";
     final response = await _dio.get(url);
     if (response.statusCode == 200) {
       return response.data['hits'];

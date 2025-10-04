@@ -8,6 +8,7 @@ import 'package:pixabay_web/features/dashboard/ui/bloc/trending_photo_cubit.dart
 import 'package:pixabay_web/features/gallery/ui/bloc/gallery_bloc.dart';
 import 'package:pixabay_web/features/profile/ui/bloc/profile_bloc.dart';
 import 'package:pixabay_web/features/sidebar/sidebar_bloc.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,8 +31,8 @@ class PixabayApp extends StatelessWidget {
         BlocProvider<BottomNavBloc>(
           create: (_) => BottomNavBloc(),
         ),
-        BlocProvider<TrendingPhotoCubit>(
-          create: (_) => locator<TrendingPhotoCubit>(),
+        BlocProvider<TrendingPhotoBloc>(
+          create: (_) => locator<TrendingPhotoBloc>(),
         ),
         BlocProvider<GalleryBloc>(
           create: (_) => locator<GalleryBloc>(),

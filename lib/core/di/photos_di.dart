@@ -20,13 +20,13 @@ void invokePhotosDI({required GetIt locator}) {
           () => PhotoRepositoryImpl(remoteDataSource: locator<PhotoRemoteDataSource>()));
 
   // use case
-  locator.registerLazySingleton(() => FetchTrendingPhotosUseCase(repository: locator<PhotoRepository>()));
+  locator.registerLazySingleton(() => FetchPhotosUseCase(repository: locator<PhotoRepository>()));
   locator.registerLazySingleton(() => GalleryPhotoUseCase(repository: locator<PhotoRepository>()));
 
   // bloc & cubit
   locator.registerFactory(
-          () => TrendingPhotoCubit(useCase: locator<FetchTrendingPhotosUseCase>()));
+          () => TrendingPhotoBloc(useCase: locator<FetchPhotosUseCase>()));
   locator.registerFactory(
-          () => GalleryBloc(useCase: locator<GalleryPhotoUseCase>()));
+          () => GalleryBloc(useCase: locator<FetchPhotosUseCase>()));
 
 }

@@ -1,47 +1,84 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pixabay_web/features/dashboard/domain/entity/photo_entity.dart';
-import 'package:pixabay_web/features/gallery/domain/usecase/gallery_photo_use_case.dart';
+import 'package:pixabay_web/features/dashboard/domain/usecase/fetch_trending_photos_use_case.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'gallery_event.dart';
 
 part 'gallery_state.dart';
 
+EventTransformer<E> debounce<E>(Duration d) {
+  return (events, mapper) => events
+      .debounceTime(d)
+      .switchMap(mapper);
+}
+
 class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
-  final int perPage = 20;
-  int currentPage = 1;
-  bool isLoading = false;
-  String currentQuery = '';
 
-  final GalleryPhotoUseCase _useCase;
+  final RefreshController refreshController = RefreshController(initialRefresh: false);
 
-  GalleryBloc({required GalleryPhotoUseCase useCase})
+  int perPage = 10;
+  int pageNo = 1;
+  List<PhotoEntity> allPhotos = [];
+
+  final FetchPhotosUseCase _useCase;
+
+  GalleryBloc({required FetchPhotosUseCase useCase})
       : _useCase = useCase,
         super(GalleryInitial()) {
+
+    on<FetchAllPhotosEvent>(_onFetchAllPhotos);
+    on<RefreshPhotosEvent>(_onRefreshAllPhotos, transformer: debounce(const Duration(seconds: 1)),);
+
     Future.microtask(() => add(const FetchAllPhotosEvent()));
-    on<FetchAllPhotosEvent>(_onFetchingPhotos);
-    // 2) then fire initial event (microtask avoids re-entrancy issues)
-    // Future.microtask(() => add(const FetchAllPhotosEvent()));
-    // add(const FetchAllPhotosEvent());
   }
 
-  void _onFetchingPhotos(
-      FetchAllPhotosEvent event, Emitter<GalleryState> emit) async {
-    emit(GalleryLoading());
+  Future<void> _onFetchAllPhotos(FetchAllPhotosEvent event, Emitter<GalleryState> emit) async {
+    bool hasReachedMax = false;
+    bool isSearch = (event.query ?? "").isNotEmpty;
+    if(state is GalleryInitial) {
+      emit(GalleryLoading());
+    }
+
     try {
-      var photos = await _useCase(
-        query: event.query ?? '',
-        page: currentPage,
-        perPage: perPage,
-      );
-      if (photos.isNotEmpty) {
-        currentPage++;
-        emit(GalleryLoaded(photos: photos, hasReachedMax: false));
+      List<PhotoEntity> photos = await _useCase.call(query: event.query ?? "", page: pageNo, perPage: perPage);
+      allPhotos = [
+        ...allPhotos,
+        ...photos
+      ];
+
+      if (photos.length < perPage) {
+        hasReachedMax = true;
+        refreshController.loadNoData();
+
       } else {
-        emit(GalleryLoaded(photos: photos, hasReachedMax: true));
+        pageNo = pageNo + 1;
+
+        if(state is GalleryLoaded){
+          refreshController.loadComplete();
+        }
       }
+
+      emit(GalleryLoaded(photos: allPhotos, hasReachedMax: hasReachedMax, isSearching: isSearch));
+    } on DioException catch (e) {
+
+      refreshController.loadFailed();
+      emit(GalleryError(message: e.toString()));
     } catch (e) {
+
+      refreshController.loadFailed();
       emit(GalleryError(message: e.toString()));
     }
+  }
+
+  void _onRefreshAllPhotos(RefreshPhotosEvent event, Emitter<GalleryState> emit){
+    pageNo = 1;
+    allPhotos = [];
+    emit(GalleryInitial());
+    add(FetchAllPhotosEvent(query: event.query));
+    refreshController.refreshCompleted();
   }
 }

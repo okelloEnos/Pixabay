@@ -1,5 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pixabay_web/features/dashboard/domain/entity/photo_entity.dart';
+import 'package:pixabay_web/features/dashboard/ui/bloc/trending_photo_cubit.dart';
+import 'package:pixabay_web/features/dashboard/ui/bloc/trending_photo_event.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePageWeb extends StatefulWidget {
   final double maxWidth;
@@ -20,197 +27,130 @@ class _HomePageWebState extends State<HomePageWeb>
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("Home"),
+    final theme = Theme.of(context);
+
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 0.0),
+        child: BlocBuilder<TrendingPhotoBloc, TrendingPhotoState>(
+          builder: (context, state) {
+            return SmartRefresher(
+              controller: context.read<TrendingPhotoBloc>().refreshController,
+              enablePullUp: true,
+              enablePullDown: true,
+              header: const WaterDropHeader(
+                waterDropColor: Colors.red,
+              ),
+              footer: const ClassicFooter(
+                textStyle: TextStyle(fontSize: 12.0, color: Colors.grey),
+                loadingText: "Fetching more creatures...",
+                loadingIcon: CupertinoActivityIndicator(),
+                canLoadingText: "Release to fetch more creatures",
+                canLoadingIcon: Icon(Icons.catching_pokemon, color: Colors.grey,),
+                idleText: "Pull up to load more",
+                noDataText: "No more creatures available",
+                noMoreIcon: Icon(Icons.catching_pokemon, color: Colors.grey,),
+                failedText: "Failed to load more creatures",
+                failedIcon: Icon(Icons.call_missed_outgoing, color: Colors.red,),
+                loadStyle: LoadStyle.ShowWhenLoading,
+                // iconPos: ptr.IconPosition.left,
+              ),
+              onRefresh: () async {
+                context.read<TrendingPhotoBloc>().add(RefreshTrendingPhotos());
+              },
+              onLoading: () async {
+                context.read<TrendingPhotoBloc>().add(FetchTrendingPhotos());
+              },
+              child: state is TrendingPhotoLoaded
+                  ? state.photos.isEmpty ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset("assets/images/hamburger.svg", color: Colors.grey.shade100, height: 150.0, width: 150.0,),
+                  const SizedBox(height: 50.0),
+                  Text("The Gallery has no creatures", style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey, fontSize: 16.0)),
+                ],
+              ):
+              GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: widget.maxWidth > 1200 ? 4 : widget.maxWidth > 800 ? 3 : 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 1.0,
+                  ),
+                  itemBuilder: (context, index){
+                    PhotoEntity photo = state.photos[index];
+                    return PhotoCard(photo: photo);
+                  },
+                  itemCount: state.photos.length)
+                  : state is TrendingPhotoError
+                  ? Text("Error: ${state.message}")
+                  : const Text("Loading..."),
+            );
+          },
+        ),
+      ),
     );
-    // return Scaffold(
-    //   backgroundColor: Theme
-    //       .of(context)
-    //       .scaffoldBackgroundColor,
-    //   body: Builder(
-    //       builder: (context) {
-    //         final productsBlocState = context
-    //             .watch<DashboardBloc>()
-    //             .state;
-    //         final discoverBlocState = context
-    //             .watch<DiscoverBloc>()
-    //             .state;
-    //         final userCrmBlocState = context
-    //             .watch<UserCrmBloc>()
-    //             .state;
-    //         final productCategoriesBlocState =
-    //             context
-    //                 .watch<ProductCategoriesBloc>()
-    //                 .state;
-    //
-    //         final isPageLoading = productsBlocState is UserProductsLoading ||
-    //             discoverBlocState is DealsLoading ||
-    //             userCrmBlocState is UserCrmLoading;
-    //
-    //         if (productsBlocState is UserProductsFailed ||
-    //             discoverBlocState is DealsFailed ||
-    //             productCategoriesBlocState is BritamProductsFailed ||
-    //             userCrmBlocState is UserCrmFailed) {
-    //           return LoadingErrorScreen(
-    //               lottie: 'assets/lottie/error-fetching.json',
-    //               errorTitle: "Oops! Something Went Wrong",
-    //               errorDescription:
-    //               "We've encountered a technical issue. Please try again later.",
-    //               onRefresh: () async {
-    //                 BlocProvider.of<UserCrmBloc>(context).add(
-    //                     FetchUserCRMDetailsEvent(
-    //                         nationalId: profile!.socialSecurityNumber!));
-    //                 BlocProvider.of<DashboardBloc>(context).add(
-    //                     FetchUserProductsEvent(
-    //                         userNationalId: profile!.socialSecurityNumber!));
-    //                 BlocProvider.of<ProductCategoriesBloc>(context)
-    //                     .add(FetchBritamProductsEvent());
-    //                 BlocProvider.of<DiscoverBloc>(context)
-    //                     .add(FetchDealsAndOffersEvent());
-    //                 context.read<CtaBloc>().add(FetchSupportedCtasEvent());
-    //               });
-    //         }
-    //
-    //         return CustomScrollView(
-    //           physics: const BouncingScrollPhysics(),
-    //           slivers: [
-    //             const SliverToBoxAdapter(child: SizedBox(height: 40)),
-    //
-    //             //  Welcome Section
-    //             WebWelcomeSection(maxWidth: widget.maxWidth, isLoading: isPageLoading,),
-    //             const SliverToBoxAdapter(child: SizedBox(height: 40)),
-    //
-    //             //  My Products section implementation
-    //             SliverToBoxAdapter(
-    //               child: Padding(
-    //                 padding: EdgeInsets.symmetric(
-    //                     horizontal: widget.maxWidth <= webSmall ? 16 : 32.0),
-    //                 child: Container(
-    //                   width: double.infinity,
-    //                   height: widget.maxWidth <= webSmall ? null : 350,
-    //                   color: Theme
-    //                       .of(context)
-    //                       .scaffoldBackgroundColor,
-    //                   child: widget.maxWidth <= webSmall
-    //                       ? Column(
-    //                     children: [
-    //                       BlocBuilder<DashboardBloc, DashboardState>(
-    //                         builder: (context, state) {
-    //                           return QuickActionsSection(
-    //                               maxWidth: widget.maxWidth,
-    //                               isLoading: state is UserProductsLoading);
-    //                         },
-    //                       ),
-    //                       const SizedBox(height: 24),
-    //                       //  my products section
-    //                       BlocBuilder<DashboardBloc, DashboardState>(
-    //                         builder: (context, state) {
-    //                           if (state is UserProductsLoading) {
-    //                             return MyProductsSection(
-    //                               maxWidth: widget.maxWidth,
-    //                             );
-    //                           }
-    //
-    //                           if (state is UserProductsSuccess) {
-    //                             return MyProductsSection(
-    //                               products: state.products,
-    //                               maxWidth: widget.maxWidth,
-    //                             );
-    //                           }
-    //
-    //                           return MyProductsSection(
-    //                             maxWidth: widget.maxWidth,
-    //                           );
-    //                         },
-    //                       ),
-    //                     ],
-    //                   )
-    //                       : Row(
-    //                     children: [
-    //                       //  my products section
-    //                       BlocBuilder<DashboardBloc, DashboardState>(
-    //                         builder: (context, state) {
-    //                           if (state is UserProductsLoading) {
-    //                             return MyProductsSection(
-    //                               maxWidth: widget.maxWidth,
-    //                             );
-    //                           }
-    //
-    //                           if (state is UserProductsSuccess) {
-    //                             return MyProductsSection(
-    //                               products: state.products,
-    //                               maxWidth: widget.maxWidth,
-    //                             );
-    //                           }
-    //
-    //                           return MyProductsSection(
-    //                             maxWidth: widget.maxWidth,
-    //                           );
-    //                         },
-    //                       ),
-    //                       const SizedBox(width: 16),
-    //                       BlocBuilder<DashboardBloc, DashboardState>(
-    //                         builder: (context, state) {
-    //                           return QuickActionsSection(
-    //                               maxWidth: widget.maxWidth,
-    //                               isLoading: state is UserProductsLoading);
-    //                         },
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               ),
-    //             ),
-    //             const SliverToBoxAdapter(child: SizedBox(height: 40)),
-    //
-    //             //  deals and offers section
-    //             BlocBuilder<DiscoverBloc, DiscoverState>(
-    //               builder: (context, state) {
-    //                 if (state is DealsLoading) {
-    //                   return DealsAndOffersSection(maxWidth: widget.maxWidth);
-    //                 }
-    //
-    //                 if (state is DealsSuccess) {
-    //                   return DealsAndOffersSection(
-    //                       dealsAndOffers: state.dealsAndOffers.take(3).toList(),
-    //                       maxWidth: widget.maxWidth);
-    //                 }
-    //
-    //                 if (state is DealsFailed) {
-    //                   return DealsAndOffersSection(maxWidth: widget.maxWidth);
-    //                 }
-    //
-    //                 return DealsAndOffersSection(maxWidth: widget.maxWidth);
-    //               },
-    //             ),
-    //             const SliverToBoxAdapter(child: SizedBox(height: 32)),
-    //
-    //             //  our products section
-    //             BlocBuilder<ProductCategoriesBloc, ProductCategoriesState>(
-    //               builder: (context, state) {
-    //                 if (state is BritamProductsLoading) {
-    //                   return OurProductsSection(maxWidth: widget.maxWidth);
-    //                 }
-    //
-    //                 if (state is BritamProductsSuccess) {
-    //                   return OurProductsSection(
-    //                       products: state.products, maxWidth: widget.maxWidth);
-    //                 }
-    //
-    //                 if (state is BritamProductsFailed) {
-    //                   return OurProductsSection(maxWidth: widget.maxWidth);
-    //                 }
-    //
-    //                 return OurProductsSection(maxWidth: widget.maxWidth);
-    //               },
-    //             ),
-    //             const SliverToBoxAdapter(child: SizedBox(height: 50)),
-    //             //  footer
-    //             // const SliverToBoxAdapter(child: DashboardFooter()),
-    //           ],
-    //         );
-    //       }
-    //   ),
-    // );
+  }
+}
+
+class PhotoCard extends StatelessWidget {
+  final PhotoEntity photo;
+  final double? height;
+  const PhotoCard({super.key, required this.photo, this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SizedBox(
+          height: height ?? 150,
+          child: photo.thumbnail != null ? CachedNetworkImage(imageUrl: photo.thumbnail!,
+            errorWidget: (_, __, ___){
+              return const Text("Error");
+            },
+            placeholder: (_, __){
+              return const CircularProgressIndicator();
+            },
+          ) : const Text("No Image"),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Container(
+            color: Colors.black54,
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  photo.photographerName ?? 'Unknown',
+                  style: const TextStyle(color: Colors.white),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                // Wrap(),
+                Wrap(
+                  // scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  children: (photo.tags ?? []).map((tag) => Container(
+                    margin: const EdgeInsets.only(right: 4.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: Text(
+                      tag,
+                      style: const TextStyle(color: Colors.white, fontSize: 12.0),
+                    ),
+                  )).toList(),
+                )
+              ],
+            ),
+          ),
+        ),
+
+      ],
+    );
   }
 }

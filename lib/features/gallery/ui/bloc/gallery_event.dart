@@ -4,62 +4,31 @@ sealed class GalleryEvent extends Equatable {
   const GalleryEvent();
 }
 
-final class FetchAllPhotosEvent extends GalleryEvent {
+class FetchAllPhotosEvent extends GalleryEvent {
   final String? query;
-  final int? page;
-  final int? perPage;
 
-  const FetchAllPhotosEvent({
-    this.query,
-    this.page,
-    this.perPage,
-  });
+  const FetchAllPhotosEvent({this.query});
 
   @override
-  List<Object?> get props => [query, page, perPage];
+  List<Object?> get props => [query];
 }
 
-final class RefreshPhotosEvent extends GalleryEvent {
+class RefreshPhotosEvent extends GalleryEvent {
   final String? query;
-  final int? page;
-  final int? perPage;
 
-  const RefreshPhotosEvent({
-    this.query,
-    this.page,
-    this.perPage,
-  });
+  const RefreshPhotosEvent({this.query});
 
   @override
-  List<Object?> get props => [query, page, perPage];
-}
-
-final class LoadMorePhotosEvent extends GalleryEvent {
-  final String? query;
-  final int? page;
-  final int? perPage;
-
-  const LoadMorePhotosEvent({
-    this.query,
-    this.page,
-    this.perPage,
-  });
-
-  @override
-  List<Object?> get props => [query, page, perPage];
+  List<Object?> get props => [query];
 }
 
 final class SearchPhotosEvent extends GalleryEvent {
   final String? query;
-  final int? page;
-  final int? perPage;
 
   const SearchPhotosEvent({
     this.query,
-    this.page,
-    this.perPage,
   });
 
   @override
-  List<Object?> get props => [query, page, perPage];
+  List<Object?> get props => [query];
 }

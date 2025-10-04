@@ -5,9 +5,9 @@ part 'Api.g.dart';
 @Envied(path: 'api.env')
 abstract class Api {
 
-  static const String pixabayBaseUrl = "https://pixabay.com/";
+  static const String pixabayBaseUrl = "https://pixabay.com";
 
-  static const String jsonBaseUrl = "https://jsonplaceholder.typicode.com/";
+  static const String jsonBaseUrl = "https://jsonplaceholder.typicode.com";
 
   /// ACCESS KEY
   @EnviedField(varName: 'ACCESS_KEY', defaultValue: '', obfuscate: true)
