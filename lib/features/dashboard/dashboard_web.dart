@@ -1,20 +1,15 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pixabay_web/features/bottom_nav/bottom_nav_bloc.dart';
 import 'package:pixabay_web/features/dashboard/dasboard_sidebar_web.dart';
 import 'package:pixabay_web/features/dashboard/dashboard_appbar_web.dart';
 import 'package:pixabay_web/features/dashboard/dashboard_sidebar_web_content.dart';
 import 'package:pixabay_web/features/dashboard/web_footer.dart';
-
 import '../../core/constants/screen_dimensions.dart';
 import '../../core/widgets/media_query_functions.dart';
 import '../sidebar/sidebar_bloc.dart';
-import 'package:pixabay_web/core/widgets/responsive_widget.dart';
 
 class DashboardWeb extends StatefulWidget {
   final Widget child;
@@ -27,48 +22,27 @@ class DashboardWeb extends StatefulWidget {
 }
 
 class _DashboardWebState extends State<DashboardWeb> {
-  // late final List<BottomBarModel> bottomNavItems;
 
   @override
   void initState() {
     super.initState();
-    // bottomNavItems = const <BottomBarModel>[
-    //   BottomBarModel(icon: 'assets/images/icons/home.svg', label: 'Home'),
-    //   BottomBarModel(
-    //       icon: 'assets/images/icons/products.svg', label: 'Products'),
-    //   BottomBarModel(
-    //       icon: 'assets/images/icons/discover.svg', label: 'Discover'),
-    //   BottomBarModel(
-    //       icon: 'assets/images/icons/activity.svg', label: 'Activity'),
-    //   BottomBarModel(icon: 'assets/images/icons/help.svg', label: 'Help'),
-    // ];
   }
 
   Widget getDashboardTitle({required int currentIndex}) {
     switch (currentIndex) {
-
       case 1:
-        return Text("My Products",
+        return Text("Gallery",
             style: Theme.of(context).textTheme.titleSmall);
       case 2:
-        return Text("Discover", style: Theme.of(context).textTheme.titleSmall);
-      case 3:
-        return Text("My Activity",
-            style: Theme.of(context).textTheme.titleSmall);
-      case 4:
-        return Text("Help Center",
-            style: Theme.of(context).textTheme.titleSmall);
+        return Text("Profile", style: Theme.of(context).textTheme.titleSmall);
       case 0:
       default:
         return Text("Home", style: Theme.of(context).textTheme.titleSmall);
     }
-
-    // return const HomeDashboardAppbarContent();
   }
 
   @override
   Widget build(BuildContext context) {
-    // return Text("Jorgon");
     return BlocBuilder<SidebarBloc, SidebarState>(
       builder: (context, sidebarState) {
         if ((isTablet(context) || isMobile(context)) &&

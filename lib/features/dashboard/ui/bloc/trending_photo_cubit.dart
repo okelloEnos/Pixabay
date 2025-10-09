@@ -37,12 +37,12 @@ class TrendingPhotoBloc extends Bloc<TrendingPhotoEvent, TrendingPhotoState> {
         }
       }
 
-      if (scrollController.offset <=
-              scrollController.position.minScrollExtent &&
-          !scrollController.position.outOfRange) {
-        Fluttertoast.showToast(msg: "Reached top");
-        add(RefreshTrendingPhotos());
-      }
+      // if (scrollController.offset <=
+      //         scrollController.position.minScrollExtent &&
+      //     !scrollController.position.outOfRange) {
+      //   Fluttertoast.showToast(msg: "Reached top");
+      //   add(RefreshTrendingPhotos());
+      // }
     });
   }
 
