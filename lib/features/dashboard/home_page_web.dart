@@ -35,6 +35,7 @@ class _HomePageWebState extends State<HomePageWeb>
         child: BlocBuilder<TrendingPhotoBloc, TrendingPhotoState>(
           builder: (context, state) {
             return SmartRefresher(
+              scrollController: context.read<TrendingPhotoBloc>().scrollController,
               controller: context.read<TrendingPhotoBloc>().refreshController,
               enablePullUp: true,
               enablePullDown: true,

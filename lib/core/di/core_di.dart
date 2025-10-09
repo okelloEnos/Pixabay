@@ -26,7 +26,8 @@ Future<void> invokeCoreDI({required GetIt locator}) async {
           // 'Authorization':
           //     'Bearer ${locator<SharedPreferencesUtil>().getValidToken()}',
           'ngrok-skip-browser-warning': true
-        }));
+        }
+        ));
   });
 
 }

@@ -69,24 +69,13 @@ class _GalleryPageState extends State<GalleryPage> {
                     context.read<GalleryBloc>().add(RefreshPhotosEvent(query: value.trim()));
                   },
                   onChanged: (value){
-                    // setState((){});
-                    // context.read<GalleryBloc>().add(RefreshPhotosEvent(query: value.trim()));
-                    ///
-                    //                       if (_debounce?.isActive ?? false) _debounce!.cancel();
-                    //                       _debounce = Timer(const Duration(milliseconds: 500), () {
-                    //                         context.read<GalleryBloc>().add(
-                    //                           FetchAllPhotosEvent(query: value.trim()),
-                    //                         );
-                    //                       });
-
-                    // _debouncer(() {
                     context.read<GalleryBloc>().add(RefreshPhotosEvent(query: value.trim()));
-                    // });
                   },
                 ),
                 const SizedBox(height: 16.0,),
                 Expanded(
                   child: SmartRefresher(
+                    scrollController: context.read<GalleryBloc>().scrollController,
                     controller: context.read<GalleryBloc>().refreshController,
                     enablePullUp: true,
                     enablePullDown: true,
