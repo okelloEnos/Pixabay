@@ -21,7 +21,7 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
       RefreshController(initialRefresh: false);
   final ScrollController scrollController = ScrollController();
 
-  int perPage = 10;
+  int perPage = 20;
   int pageNo = 1;
   List<PhotoEntity> allPhotos = [];
 
@@ -50,12 +50,12 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
         }
       }
 
-      if (scrollController.offset <=
-              scrollController.position.minScrollExtent &&
-          !scrollController.position.outOfRange) {
-        Fluttertoast.showToast(msg: "Reached top: $latestQuery");
-        add(RefreshPhotosEvent(query: latestQuery));
-      }
+      // if (scrollController.offset <=
+      //         scrollController.position.minScrollExtent &&
+      //     !scrollController.position.outOfRange) {
+      //   Fluttertoast.showToast(msg: "Reached top: $latestQuery");
+      //   add(RefreshPhotosEvent(query: latestQuery));
+      // }
     });
   }
 

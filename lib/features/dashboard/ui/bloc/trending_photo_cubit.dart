@@ -15,7 +15,7 @@ class TrendingPhotoBloc extends Bloc<TrendingPhotoEvent, TrendingPhotoState> {
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
   final ScrollController scrollController = ScrollController();
-  int perPage = 10;
+  int perPage = 20;
   int pageNo = 1;
   List<PhotoEntity> allPhotos = [];
 

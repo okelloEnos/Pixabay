@@ -100,24 +100,6 @@ class _DashboardWebState extends State<DashboardWeb> {
                             ),
                           );
                         }),
-                        actions: [
-                          // IconButton(
-                          //     onPressed: () {
-                          //       context.go('/home/search');
-                          //     },
-                          //     icon: SvgPicture.asset(
-                          //       'assets/images/icons/search.svg',
-                          //       width: 24,
-                          //       height: 24,
-                          //       colorFilter: const ColorFilter.mode(
-                          //           blackLightColor, BlendMode.srcIn),
-                          //     )),
-                          // const SizedBox(width: 8),
-                          // const Avatar(
-                          //     size: Size(40, 40),
-                          //     backgroundColor: avatarOrange),
-                          // const SizedBox(width: 16),
-                        ],
                       )
                     : null,
                 drawer: widget.maxWidth <= webSmall
@@ -154,15 +136,7 @@ class _DashboardWebState extends State<DashboardWeb> {
                                                 padding:
                                                     const EdgeInsets.only(
                                                         top: 55),
-                                                child: Column(
-                                                  children: [
-                                                    Expanded(
-                                                        child: widget.child),
-                                                    const WebFooter(
-                                                      // showBackground: true,
-                                                    )
-                                                  ],
-                                                )),
+                                                child: widget.child),
 
                                         //  appbar
                                         widget.maxWidth <= webSmall

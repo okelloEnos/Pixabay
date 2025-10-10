@@ -124,12 +124,6 @@ class _DashboardSidebarWebContentState
                           case 2:
                             context.goNamed('profile');
                             break;
-                          // case 3:
-                          //   context.goNamed('activity');
-                          //   break;
-                          // case 4:
-                          //   context.goNamed('help');
-                          //   break;
                         }
 
                         if (widget.sidebarState == null) {
@@ -144,13 +138,6 @@ class _DashboardSidebarWebContentState
                         return SideBarItem(
                           bottomBarModel: bottomNavItems[index],
                           isActive: index == state.currentIndex,
-                          // isActive: index == 0
-                          //     ? (!(path.contains('products')) &&
-                          //     !(path.contains('discover')) &&
-                          //     !(path.contains('activity')) &&
-                          //     !(path.contains('help')))
-                          //     : path.contains(
-                          //     bottomNavItems[index].label.toLowerCase()),
                           isCollapsed: widget.sidebarState == null
                               ? false
                               : widget.sidebarState is SidebarCollapsed,
