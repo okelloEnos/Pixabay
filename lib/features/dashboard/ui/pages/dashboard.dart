@@ -121,21 +121,21 @@ class Dashboard extends StatelessWidget {
                                         : Padding(
                                             padding: const EdgeInsets.only(top: 50),
                                             child: child),
-                                    Positioned(
-                                      top: 5.0,
-                                      right: 0,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                                        child: Center(
-                                          child: CustomThemeSwitch(
-                                            isDarkMode: Theme.of(context).brightness == Brightness.dark,
-                                            onChanged: (f){
-                                              context.read<PixabayThemeCubit>().toggleTheme();
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    // Positioned(
+                                    //   top: 5.0,
+                                    //   right: 0,
+                                    //   child: Padding(
+                                    //     padding: const EdgeInsets.symmetric(horizontal: 12),
+                                    //     child: Center(
+                                    //       child: CustomThemeSwitch(
+                                    //         isDarkMode: Theme.of(context).brightness == Brightness.dark,
+                                    //         onChanged: (f){
+                                    //           context.read<PixabayThemeCubit>().toggleTheme();
+                                    //         },
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),

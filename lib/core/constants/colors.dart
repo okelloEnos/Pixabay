@@ -26,15 +26,3 @@ const Color whiteColorDarkFaded = Color(0xFF383838);
 const Color dialogBgDark = Color(0xFF5E5E5E);
 const Color appbarDark = Color(0xFF4B4B4B);
 
-/// Dark Theme Britam Blue
-const Color primaryColorMidnight = Color(0xFF1A73E8);
-const Color backgroundColorMidnight = Color(0xFF00101A);
-const Color whiteColorMidnight = Color(0xFF242E3A);
-const Color whiteColorMidnightFaded = Color(0xFF2F3844);
-const Color dialogBgMidnight = Color(0xFF54616C);
-
-const Color greenColor = Color(0xff3DC25E);
-const Color orangeColor = Color(0xffFFA126);
-const Color avatarOrange = Color(0xfffe805c);
-
-const Color mileleColor = Color(0xFF01C5D1);

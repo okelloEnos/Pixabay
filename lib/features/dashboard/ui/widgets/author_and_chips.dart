@@ -33,11 +33,11 @@ class AuthorAndChips extends StatelessWidget {
                 Container(
                     padding: const EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
+                      color: Theme.of(context).hintColor.withOpacity(0.05),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.person,
-                        size: 12.0, color: Colors.grey)),
+                    child: Icon(Icons.person,
+                        size: 12.0, color: Theme.of(context).hintColor)),
                 const SizedBox(width: 6.0),
                 Expanded(
                   child: Text(
@@ -69,14 +69,14 @@ class AuthorAndChips extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 4.0),
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
+                            color: Theme.of(context).hintColor.withOpacity(0.05),
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Text(
                             '+ $overflowCount',
                             style: TextStyle(
                               fontSize: 11,
-                              color: Colors.grey.shade800,
+                              color: Theme.of(context).hintColor.withOpacity(0.8),
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -96,12 +96,12 @@ class AuthorAndChips extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: Theme.of(ctx).hintColor.withOpacity(0.05),
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: Text(
         tag,
-        style: const TextStyle(fontSize: 11.0, color: Colors.black87),
+        style: TextStyle(fontSize: 11.0, color: Theme.of(ctx).hintColor.withOpacity(0.8)),
       ),
     );
   }

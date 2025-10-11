@@ -36,11 +36,10 @@ class _PhotoCardState extends State<PhotoCard> {
       ),
       child: Card(
         elevation: 1.0,
-        surfaceTintColor: Colors.white,
+        surfaceTintColor: Theme.of(context).colorScheme.onPrimary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: () {}, // open details
           hoverColor: Colors.black12,
           onHover: (isHovering) {
             setState(() {
@@ -80,7 +79,7 @@ class _PhotoCardState extends State<PhotoCard> {
               Container(
                 height: 1.0,
                 width: double.infinity,
-                color: Colors.grey.shade100,
+                color: Theme.of(context).hintColor.withOpacity(0.1),
               ),
               Expanded(
                 child: Padding(

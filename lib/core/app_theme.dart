@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pixabay_web/core/constants/colors.dart';
 
@@ -14,7 +13,6 @@ class AppTheme {
             onSecondary: whiteColor,
             tertiary: blackColor,
             onTertiary: whiteColor,
-            primaryContainer: avatarOrange,
             onPrimaryContainer: whiteColor,
             background: backgroundColor,
             onBackground: primaryColor,
@@ -88,7 +86,7 @@ class AppTheme {
             brightness: Brightness.dark,
             seedColor: primaryColor,
             primary: primaryColor,
-            onPrimary: kIsWeb ? backgroundColorDark : whiteColorDark,
+            onPrimary: backgroundColorDark,
             secondary: secondaryColor,
             onSecondary: whiteColorDark,
             tertiary: whiteColor,
@@ -99,8 +97,8 @@ class AppTheme {
             onError: whiteColor,
             outline: primaryColor),
         primaryColor: primaryColor,
-        scaffoldBackgroundColor: kIsWeb ? whiteColorDark : backgroundColorDark,
-        hintColor: whiteColor.withOpacity(0.2),
+        scaffoldBackgroundColor: whiteColorDark,
+        hintColor: whiteColor,
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
           backgroundColor: primaryColor,
@@ -110,7 +108,7 @@ class AppTheme {
         ),
         cardTheme: CardTheme(
             margin: EdgeInsets.zero,
-            color: whiteColor,
+            color: Colors.black,
             elevation: 0.0,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0))),
