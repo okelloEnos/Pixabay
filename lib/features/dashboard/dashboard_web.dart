@@ -45,9 +45,11 @@ class _DashboardWebState extends State<DashboardWeb> {
   Widget build(BuildContext context) {
     return BlocBuilder<SidebarBloc, SidebarState>(
       builder: (context, sidebarState) {
-        if ((isTablet(context) || isMobile(context)) &&
-            sidebarState is SidebarExpanded) {
+        if ((isTablet(context) || isMobile(context)) && sidebarState is SidebarExpanded) {
           BlocProvider.of<SidebarBloc>(context).add(CollapseSidebarEvent());
+        }
+        else if (isDesktop(context) && sidebarState is SidebarCollapsed) {
+          BlocProvider.of<SidebarBloc>(context).add(ExpandSidebarEvent());
         }
 
         return AnnotatedRegion(
@@ -117,171 +119,22 @@ class _DashboardWebState extends State<DashboardWeb> {
                   color: Theme.of(context).colorScheme.onPrimary,
                   child: Align(
                     alignment: Alignment.center,
-                            child: Stack(
+                            child: Row(
                               children: [
-                                Row(
-                                  children: [
-                                    //  sidebar
-                                    widget.maxWidth <= webSmall
-                                        ? const SizedBox.shrink()
-                                        : const DashboardSidebarWeb(),
-                                    //  main content
-                                    Expanded(
-                                        child: Stack(
-                                      children: [
-                                        //  main content
-                                        widget.maxWidth <= webSmall
-                                            ? widget.child
-                                            : Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        top: 55),
-                                                child: widget.child),
+                                //  sidebar
+                                widget.maxWidth <= webSmall
+                                    ? const SizedBox.shrink()
+                                    : const DashboardSidebarWeb(),
 
-                                        //  appbar
-                                        widget.maxWidth <= webSmall
-                                            ? const SizedBox.shrink()
-                                            : BlocBuilder<BottomNavBloc,
-                                                BottomNavState>(
-                                                builder: (context, state) {
-                                                  return DashboardAppBarWeb(
-                                                    maxWidth: widget.maxWidth,
-                                                    isSearchActive:
-                                                        state is SearchActive,
-                                                    onHamburgerTap: () {
-                                                      //  toggle sidebar
-                                                      BlocProvider.of<
-                                                                  SidebarBloc>(
-                                                              context)
-                                                          .add(
-                                                              ToggleSidebarEvent());
-                                                    },
-                                                  );
-                                                },
-                                              ),
-
-                                        // BlocBuilder<TogglePdfViewerBloc,
-                                        //     TogglePdfViewerState>(
-                                        //   builder:
-                                        //       (context, pdfViewOpenState) {
-                                        //     return pdfViewOpenState
-                                        //                 is! TogglePdfViewerOpen &&
-                                        //             pdfViewOpenState
-                                        //                 is! ToggleStoryViewOpen &&
-                                        //             pdfViewOpenState
-                                        //                 is! ToggleDealsViewOpen &&
-                                        //             pdfViewOpenState
-                                        //                 is! ToggleDealsVideoOpen
-                                        //         ? const SizedBox.shrink()
-                                        //         : ClipRRect(
-                                        //             borderRadius:
-                                        //                 BorderRadius.circular(
-                                        //                     8),
-                                        //             child: BackdropFilter(
-                                        //               filter:
-                                        //                   ImageFilter.blur(
-                                        //                       sigmaX: 6,
-                                        //                       sigmaY: 6),
-                                        //               child: Container(
-                                        //                 width:
-                                        //                     double.infinity,
-                                        //                 height:
-                                        //                     double.infinity,
-                                        //                 clipBehavior:
-                                        //                     Clip.hardEdge,
-                                        //                 decoration:
-                                        //                     BoxDecoration(
-                                        //                   color: isDarkMode(
-                                        //                           themeModeModel:
-                                        //                               appearanceState
-                                        //                                   .appearanceSettingsModel
-                                        //                                   .themeModeModel)
-                                        //                       ? Theme.of(
-                                        //                               context)
-                                        //                           .scaffoldBackgroundColor
-                                        //                           .withOpacity(
-                                        //                               0.5)
-                                        //                       : blackColor
-                                        //                           .withOpacity(
-                                        //                               0.8),
-                                        //                 ),
-                                        //                 child: Stack(
-                                        //                   children: [
-                                        //                     SizedBox(
-                                        //                         width: double
-                                        //                             .infinity,
-                                        //                         height: double
-                                        //                             .infinity,
-                                        //                         child: pdfViewOpenState
-                                        //                                 is TogglePdfViewerOpen
-                                        //                             ? ViewPdfPage(
-                                        //                                 pdfData: pdfViewOpenState
-                                        //                                     .pdfData)
-                                        //                             : pdfViewOpenState
-                                        //                                     is ToggleStoryViewOpen
-                                        //                                 ? SizedBox(
-                                        //                                     width: double.infinity,
-                                        //                                     height: double.infinity,
-                                        //                                     child: MultiBlocListener(
-                                        //                                       listeners: [
-                                        //                                         BlocListener<DiscoverBloc, DiscoverState>(listener: (context, dealsState) {
-                                        //                                           if (dealsState is DealsSuccess) {
-                                        //                                             BlocProvider.of<GetStoryItemsFromHiveBloc>(context).add(EventGetStoryItemsFromHive(artworkDeals: dealsState.dealsAndOffers.where((deal) => deal.isArtwork).toList()));
-                                        //                                           }
-                                        //                                         })
-                                        //                                       ],
-                                        //                                       child: const StoryViewPage(),
-                                        //                                     ),
-                                        //                                   )
-                                        //                                 : pdfViewOpenState is ToggleDealsViewOpen
-                                        //                                     ? const OverlayDealsViewWeb()
-                                        //                                     : pdfViewOpenState is ToggleDealsVideoOpen
-                                        //                                         ? OverlayDealsVideoWeb(
-                                        //                                             deal: pdfViewOpenState.deal,
-                                        //                                             allVideos: pdfViewOpenState.allVideos,
-                                        //                                           )
-                                        //                                         : const SizedBox.shrink()),
-                                        //                     Visibility(
-                                        //                       visible:
-                                        //                           pdfViewOpenState
-                                        //                               is! ToggleStoryViewOpen && pdfViewOpenState is! TogglePdfViewerOpen,
-                                        //                       child:
-                                        //                           Positioned(
-                                        //                               top: 0,
-                                        //                               right:
-                                        //                                   0,
-                                        //                               child:
-                                        //                                   Padding(
-                                        //                                 padding: const EdgeInsets
-                                        //                                     .all(
-                                        //                                     30.0),
-                                        //                                 child:
-                                        //                                     IconButton(
-                                        //                                   onPressed:
-                                        //                                       () {
-                                        //                                     BlocProvider.of<TogglePdfViewerBloc>(context).add(CloseViewerEvent());
-                                        //                                   },
-                                        //                                   icon:
-                                        //                                       SvgPicture.asset(
-                                        //                                     'assets/images/close.svg',
-                                        //                                     width: 26,
-                                        //                                     height: 26,
-                                        //                                     colorFilter: const ColorFilter.mode(whiteColor, BlendMode.srcIn),
-                                        //                                   ),
-                                        //                                 ),
-                                        //                               )),
-                                        //                     )
-                                        //                   ],
-                                        //                 ),
-                                        //               ),
-                                        //             ),
-                                        //           );
-                                        //   },
-                                        // )
-                                      ],
-                                    ))
-                                  ],
-                                ),
+                                //  main content
+                                Expanded(
+                                  child: widget.maxWidth <= webSmall
+                                      ? widget.child
+                                      : Padding(
+                                      padding:
+                                      const EdgeInsets.only(
+                                          top: 30),
+                                      child: widget.child),),
                               ],
                             ))
                 ),

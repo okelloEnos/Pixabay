@@ -289,7 +289,8 @@ class CustomChips extends StatelessWidget {
                   const SizedBox(width: 6.0),
                   Expanded(
                     child: Text(
-                      photo.photographerName ?? 'Unknown',
+                      // photo.photographerName ?? 'Unknown',
+                      "W: ${constraints.maxWidth.toInt()}",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontSize: 16.0,
                       ),

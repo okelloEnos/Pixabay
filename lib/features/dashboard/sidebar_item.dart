@@ -28,31 +28,28 @@ class SideBarItem extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           width: double.infinity,
-          margin: const EdgeInsets.only(top: 12),
+          margin: const EdgeInsets.only(top: 8.0),
           height: 70,
           child: Row(
             children: [
               isActive
-                  ? Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  width: 7,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                      color: whiteColor,
-                      borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(16),
-                          bottomRight: Radius.circular(16))),
-                ),
-              )
+                  ? Container(
+                    width: 4.0,
+                    height: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: whiteColor,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(16),
+                            bottomRight: Radius.circular(16))),
+                  )
                   : const SizedBox.shrink(),
-              const SizedBox(width: 8),
+              const SizedBox(width: 6.0),
               Expanded(
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
                   margin: EdgeInsets.only(
-                      right: isCollapsed ? 8 : 16, left: isActive ? 0 : 8),
+                      right: isCollapsed ? 8 : 16),
                   padding: EdgeInsets.symmetric(
                       vertical: 24, horizontal: isCollapsed ? 4 : 32),
                   decoration: BoxDecoration(
@@ -60,7 +57,7 @@ class SideBarItem extends StatelessWidget {
                           ? whiteColor.withOpacity(0.1)
                           : Colors.transparent,
                       borderRadius:
-                      isActive ? BorderRadius.circular(16) : null,
+                      isActive ? BorderRadius.circular(8.0) : null,
                       border: isActive
                           ? null
                           : Border(
@@ -77,9 +74,7 @@ class SideBarItem extends StatelessWidget {
                       Image.asset(bottomBarModel.icon,
                           width: 24,
                           height: 24,
-                          // colorFilter: ColorFilter.mode(
-                          //    whiteColor,
-                          //     BlendMode.srcIn)
+                        color: Colors.white,
                       )
                           .animate(autoPlay: true)
                           .moveX(
@@ -110,7 +105,7 @@ class SideBarItem extends StatelessWidget {
                                 color: whiteColor))
                             .animate(
                             autoPlay: true,
-                            delay: Duration(milliseconds: 300))
+                            delay: const Duration(milliseconds: 300))
                             .moveX(
                             begin: 0,
                             end: 15,
@@ -135,8 +130,7 @@ class SideBarItem extends StatelessWidget {
                       Image.asset(bottomBarModel.icon,
                           width: 24,
                           height: 24,
-                          // colorFilter: const ColorFilter.mode(
-                          //     whiteColor, BlendMode.srcIn)
+                        color: Colors.white,
                       ),
                       SizedBox(width: isCollapsed ? 0 : 16),
                       Visibility(
@@ -162,73 +156,5 @@ class SideBarItem extends StatelessWidget {
         ),
       ),
     );
-    // return MouseRegion(
-    //   cursor: SystemMouseCursors.click,
-    //   child: GestureDetector(
-    //     onTap: onTap,
-    //     child: AnimatedContainer(
-    //       duration: const Duration(milliseconds: 300),
-    //       width: double.infinity,
-    //       height: 70,
-    //       decoration: BoxDecoration(
-    //           color: isActive
-    //               ? whiteColor.withOpacity(0.1)
-    //               : Theme.of(context).colorScheme.primary,
-    //           border: isActive
-    //               ? null
-    //               : Border(
-    //                   bottom: BorderSide(
-    //                       color: whiteColor
-    //                           .withOpacity(0.2),
-    //                       width: 1))),
-    //       child: Stack(
-    //         children: [
-    //           isActive
-    //               ? Align(
-    //                   alignment: Alignment.centerLeft,
-    //                   child: Container(
-    //                       width: 5,
-    //                       height: double.infinity,
-    //                       color: whiteColor),
-    //                 )
-    //               : const SizedBox.shrink(),
-    //           Padding(
-    //             padding:
-    //                 const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-    //             child: Row(
-    //               mainAxisAlignment: isCollapsed
-    //                   ? MainAxisAlignment.center
-    //                   : MainAxisAlignment.start,
-    //               crossAxisAlignment: CrossAxisAlignment.center,
-    //               children: [
-    //                 SvgPicture.asset(bottomBarModel.icon,
-    //                     width: 24,
-    //                     height: 24,
-    //                     colorFilter: const ColorFilter.mode(
-    //                         whiteColor,
-    //                         BlendMode.srcIn)),
-    //                 SizedBox(width: isCollapsed ? 0 : 16),
-    //                 Visibility(
-    //                   visible: !isCollapsed,
-    //                   child: Text(bottomBarModel.label,
-    //                       style: TextStyle(
-    //                           fontSize: Theme.of(context)
-    //                               .textTheme
-    //                               .bodyMedium!
-    //                               .fontSize,
-    //                           fontWeight: Theme.of(context)
-    //                               .textTheme
-    //                               .bodyMedium!
-    //                               .fontWeight,
-    //                           color: whiteColor)),
-    //                 )
-    //               ],
-    //             ),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }
