@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:pixabay_web/core/constants/colors.dart';
 
 class AppTheme {
-  static ThemeData lightTheme({Color? accent}) {
+  static ThemeData lightTheme() {
     return ThemeData(
         colorScheme: ColorScheme.fromSeed(
             brightness: Brightness.light,
-            seedColor: accent ?? primaryColor,
-            primary: accent ?? primaryColor,
+            seedColor: primaryColor,
+            primary: primaryColor,
             onPrimary: whiteColor,
             secondary: secondaryColor,
             onSecondary: whiteColor,
@@ -17,10 +17,10 @@ class AppTheme {
             primaryContainer: avatarOrange,
             onPrimaryContainer: whiteColor,
             background: backgroundColor,
-            onBackground: accent ?? primaryColor,
+            onBackground: primaryColor,
             error: redColor,
             onError: whiteColor,
-            outline: accent ?? primaryColor),
+            outline: primaryColor),
         primaryColor: primaryColor,
         hintColor: blackColor.withOpacity(0.2),
         scaffoldBackgroundColor: backgroundColor,
@@ -50,9 +50,9 @@ class AppTheme {
             surfaceTintColor: whiteColor,
             backgroundColor: whiteColor,
             modalBackgroundColor: whiteColor),
-        snackBarTheme: SnackBarThemeData(
-            backgroundColor: accent ?? primaryColor,
-            contentTextStyle: const TextStyle(
+        snackBarTheme: const SnackBarThemeData(
+            backgroundColor: primaryColor,
+            contentTextStyle: TextStyle(
                 color: whiteColor,
                 fontSize: 14.0,
                 fontWeight: FontWeight.w700)),
@@ -75,40 +75,37 @@ class AppTheme {
         scrollbarTheme: ScrollbarThemeData(
           radius: const Radius.circular(2.0),
           thickness: MaterialStateProperty.all(4.0),
-          thumbColor: MaterialStateProperty.all(accent ?? primaryColor),
+          thumbColor: MaterialStateProperty.all(primaryColor),
           trackColor: MaterialStateProperty.all(Colors.grey[300]),
           thumbVisibility: MaterialStateProperty.all(true),
           trackVisibility: MaterialStateProperty.all(true),
         ));
   }
 
-  static ThemeData darkTheme({bool isMidnight = true, Color? accent}) {
+  static ThemeData darkTheme() {
     return ThemeData(
         colorScheme: ColorScheme.fromSeed(
             brightness: Brightness.dark,
             seedColor: primaryColor,
-            primary: accent ?? primaryColor,
-            onPrimary: isMidnight ? whiteColorMidnight : (kIsWeb ? backgroundColorDark : whiteColorDark),
+            primary: primaryColor,
+            onPrimary: kIsWeb ? backgroundColorDark : whiteColorDark,
             secondary: secondaryColor,
-            onSecondary: isMidnight ? whiteColorMidnight : whiteColorDark,
+            onSecondary: whiteColorDark,
             tertiary: whiteColor,
-            onTertiary: isMidnight ? whiteColorMidnight : whiteColorDark,
-            background:
-                isMidnight ? backgroundColorMidnight : backgroundColorDark,
+            onTertiary: whiteColorDark,
+            background: backgroundColorDark,
             onBackground: whiteColor,
             error: redColor,
             onError: whiteColor,
-            outline: accent ?? primaryColor),
+            outline: primaryColor),
         primaryColor: primaryColor,
-        scaffoldBackgroundColor:
-            isMidnight ? backgroundColorMidnight : (kIsWeb ? whiteColorDark : backgroundColorDark),
+        scaffoldBackgroundColor: kIsWeb ? whiteColorDark : backgroundColorDark,
         hintColor: whiteColor.withOpacity(0.2),
-        // primaryColor: primaryColor,
         useMaterial3: true,
-        appBarTheme: AppBarTheme(
-          backgroundColor: accent ?? primaryColor,
-          iconTheme: const IconThemeData(color: whiteColor),
-          titleTextStyle: const TextStyle(
+        appBarTheme: const AppBarTheme(
+          backgroundColor: primaryColor,
+          iconTheme: IconThemeData(color: whiteColor),
+          titleTextStyle: TextStyle(
               color: whiteColor, fontSize: 24.0, fontWeight: FontWeight.w700),
         ),
         cardTheme: CardTheme(
@@ -123,38 +120,33 @@ class AppTheme {
           unselectedItemColor: inactiveColor,
           selectedItemColor: secondaryColor,
         ),
-        datePickerTheme: DatePickerThemeData(
-          headerHeadlineStyle: const TextStyle(
+        datePickerTheme: const DatePickerThemeData(
+          headerHeadlineStyle: TextStyle(
               color: whiteColor, fontSize: 22, fontWeight: FontWeight.w700),
-          weekdayStyle: const TextStyle(
+          weekdayStyle: TextStyle(
               color: whiteColor, fontSize: 14, fontWeight: FontWeight.w700),
-          dayStyle: const TextStyle(
+          dayStyle: TextStyle(
               color: whiteColor, fontSize: 13, fontWeight: FontWeight.w700),
-          inputDecorationTheme: const InputDecorationTheme(),
-          backgroundColor: isMidnight ? dialogBgMidnight : dialogBgDark,
-          surfaceTintColor: isMidnight ? dialogBgMidnight : dialogBgDark,
+          inputDecorationTheme: InputDecorationTheme(),
+          backgroundColor: dialogBgDark,
+          surfaceTintColor: dialogBgDark,
         ),
-        canvasColor: isMidnight ? whiteColorMidnight : whiteColorDark,
-        bottomSheetTheme: BottomSheetThemeData(
+        canvasColor: whiteColorDark,
+        bottomSheetTheme: const BottomSheetThemeData(
           dragHandleColor: whiteColor,
-          dragHandleSize: const Size(70, 3),
-          surfaceTintColor:
-              isMidnight ? whiteColorMidnightFaded : whiteColorDarkFaded,
-          backgroundColor:
-              isMidnight ? whiteColorMidnightFaded : whiteColorDarkFaded,
-          modalBackgroundColor:
-              isMidnight ? whiteColorMidnightFaded : whiteColorDarkFaded,
+          dragHandleSize: Size(70, 3),
+          surfaceTintColor: whiteColorDarkFaded,
+          backgroundColor: whiteColorDarkFaded,
+          modalBackgroundColor: whiteColorDarkFaded,
         ),
-        snackBarTheme: SnackBarThemeData(
-            backgroundColor: accent ?? primaryColor,
-            contentTextStyle: const TextStyle(
+        snackBarTheme: const SnackBarThemeData(
+            backgroundColor: primaryColor,
+            contentTextStyle: TextStyle(
                 color: whiteColor,
                 fontSize: 14.0,
                 fontWeight: FontWeight.w700)),
-        popupMenuTheme: PopupMenuThemeData(
-            color: isMidnight ? whiteColorMidnightFaded : whiteColorDarkFaded,
-            surfaceTintColor:
-                isMidnight ? whiteColorMidnightFaded : whiteColorDarkFaded),
+        popupMenuTheme: const PopupMenuThemeData(
+            color: whiteColorDarkFaded, surfaceTintColor: whiteColorDarkFaded),
         dividerColor: Colors.transparent,
         fontFamily: "Helvetica",
         textTheme: AppTextTheme.darkTextTheme());

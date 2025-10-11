@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pixabay_web/features/dashboard/dashboard.dart';
-import 'package:pixabay_web/features/dashboard/home_page.dart';
-import 'package:pixabay_web/features/gallery/gallery_page.dart';
-import 'package:pixabay_web/features/profile/profile_page.dart';
+import 'package:pixabay_web/features/dashboard/ui/pages/dashboard.dart';
+import 'package:pixabay_web/features/dashboard/ui/pages/home_page.dart';
+import 'package:pixabay_web/features/gallery/ui/pages/gallery_page.dart';
+import 'package:pixabay_web/features/profile/ui/pages/profile_page.dart';
 import 'pages/routing_error_page.dart';
 import 'widgets/app_custom_animation_page_builder.dart';
 
@@ -14,7 +14,6 @@ final GoRouter appRouter = GoRouter(
     return null;
   },
   routes: <RouteBase>[
-    // splash,
     StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             Dashboard(child: navigationShell),

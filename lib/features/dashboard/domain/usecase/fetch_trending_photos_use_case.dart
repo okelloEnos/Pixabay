@@ -7,7 +7,11 @@ class FetchPhotosUseCase {
   FetchPhotosUseCase({required PhotoRepository repository})
       : _repository = repository;
 
-  Future<List<PhotoEntity>> call({required String? query, required int? page, required int? perPage}) async {
-    return await _repository.fetchPhotos(query: query ?? '', page: page ?? 1, perPage: perPage ?? 20);
+  Future<List<PhotoEntity>> call(
+      {required String? query,
+      required int? page,
+      required int? perPage}) async {
+    return await _repository.fetchPhotos(
+        query: query ?? '', page: page ?? 1, perPage: perPage ?? 20);
   }
 }

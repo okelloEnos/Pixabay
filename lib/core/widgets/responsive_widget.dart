@@ -1,24 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class ResponsiveWidget extends StatelessWidget {
-  final Widget mobile;
-  final Widget desktop;
-
-  const ResponsiveWidget({
-    super.key,
-    required this.mobile,
-    required this.desktop,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-
-    return kIsWeb ? desktop
-        : mobile;
-  }
-}
-
 class ResponsiveLayoutWidget extends StatelessWidget {
   final Widget small;
   final Widget? medium;
@@ -47,16 +29,5 @@ class ResponsiveLayoutWidget extends StatelessWidget {
     return isDesktop(context) ? large
     : isTablet(context) ? medium ?? small
     : small ;
-    // return LayoutBuilder(
-    //   builder: (context, constraints) {
-    //     if (constraints.maxWidth >= 1000) {
-    //       return large;
-    //     } else if (constraints.maxWidth >= 600) {
-    //       return medium ?? small;
-    //     } else {
-    //       return small;
-    //     }
-    //   },
-    // );
   }
 }

@@ -11,6 +11,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   Future<int> saveUserInformation({required ProfileEntity profile}) async {
-    return await _remoteDataSource.saveUserInformation(profile: ProfileModel.fromEntity(entity: profile));
+    return await _remoteDataSource.saveUserInformation(
+        profile: ProfileModel.fromEntity(entity: profile));
   }
 }

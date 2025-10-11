@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pixabay_web/core/widgets/media_query_functions.dart';
-import 'package:pixabay_web/features/bottom_nav/bottom_nav_bloc.dart';
-import 'package:pixabay_web/features/dashboard/bottom_bar_model.dart';
-import 'package:pixabay_web/features/dashboard/sidebar_item.dart';
-import 'package:pixabay_web/features/sidebar/sidebar_bloc.dart';
+import 'package:pixabay_web/features/dashboard/ui/bloc/bottom_nav/bottom_nav_bloc.dart';
+import 'package:pixabay_web/features/dashboard/data/model/bottom_bar_model.dart';
+import 'package:pixabay_web/features/dashboard/ui/widgets/sidebar_item.dart';
+import 'package:pixabay_web/features/dashboard/ui/bloc/sidebar/sidebar_bloc.dart';
 
-class DashboardSidebarWebContent extends StatefulWidget {
+class DashboardSideBarContent extends StatefulWidget {
   final SidebarState? sidebarState;
 
-  const DashboardSidebarWebContent({super.key, this.sidebarState});
+  const DashboardSideBarContent({super.key, this.sidebarState});
 
   @override
-  State<DashboardSidebarWebContent> createState() =>
-      _DashboardSidebarWebContentState();
+  State<DashboardSideBarContent> createState() =>
+      _DashboardSideBarContentState();
 }
 
-class _DashboardSidebarWebContentState
-    extends State<DashboardSidebarWebContent> {
+class _DashboardSideBarContentState
+    extends State<DashboardSideBarContent> {
   late final List<BottomBarModel> bottomNavItems;
 
   @override
@@ -53,8 +53,7 @@ class _DashboardSidebarWebContentState
                   onTap: () {
                     context.go('/home');
                     BlocProvider.of<BottomNavBloc>(context).add(
-                        ToggleSearch(
-                            isActive: false, currentIndex: 0));
+                        NavigationTappedEvent(currentIndex: 0));
                   },
                   child: UnconstrainedBox(
                     child:  widget.sidebarState is SidebarCollapsed ? Image.asset(
@@ -113,8 +112,7 @@ class _DashboardSidebarWebContentState
                               : widget.sidebarState is SidebarCollapsed,
                           onTap: () {
                             BlocProvider.of<BottomNavBloc>(context).add(
-                                ToggleSearch(
-                                    isActive: false, currentIndex: index));
+                                NavigationTappedEvent(currentIndex: index));
                           },
                         );
                       },

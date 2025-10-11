@@ -1,6 +1,6 @@
 import 'package:pixabay_web/features/dashboard/domain/entity/photo_entity.dart';
 
-class PhotoModel extends PhotoEntity{
+class PhotoModel extends PhotoEntity {
   const PhotoModel({
     super.id,
     super.thumbnail,

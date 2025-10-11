@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class PhotoEntity extends Equatable{
+class PhotoEntity extends Equatable {
   final String? id;
   final String? thumbnail;
   final String? photographerName;

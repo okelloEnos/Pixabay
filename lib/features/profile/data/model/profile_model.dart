@@ -1,6 +1,6 @@
 import 'package:pixabay_web/features/profile/domain/entity/profile_entity.dart';
 
-class ProfileModel extends ProfileEntity{
+class ProfileModel extends ProfileEntity {
   const ProfileModel({
     super.id,
     super.fullName,
@@ -29,7 +29,7 @@ class ProfileModel extends ProfileEntity{
     };
   }
 
-  factory ProfileModel.fromEntity({required ProfileEntity entity}){
+  factory ProfileModel.fromEntity({required ProfileEntity entity}) {
     return ProfileModel(
       id: entity.id,
       fullName: entity.fullName,

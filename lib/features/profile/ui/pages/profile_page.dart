@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixabay_web/core/constants/colors.dart';
-import 'package:pixabay_web/core/widgets/custom_text.dart';
 import 'package:pixabay_web/features/profile/domain/entity/profile_entity.dart';
 import 'package:pixabay_web/features/profile/ui/bloc/profile_bloc.dart';
 
@@ -273,11 +272,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               ? Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    CustomText(
-                                      text: "Submitting profile...",
-                                      fontSize: 14.0,
-                                      color: Colors.grey.shade400,
-                                      fontWeight: FontWeight.w400,
+                                    Text(
+                                      "Submitting profile...",
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.grey.shade400,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 4.0,

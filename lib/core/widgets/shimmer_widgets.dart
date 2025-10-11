@@ -7,7 +7,7 @@ class ShimmerWidget extends StatelessWidget {
   final Color? highlightColor;
 
   const ShimmerWidget(
-      {super.key,  required this.child, this.baseColor, this.highlightColor});
+      {super.key, required this.child, this.baseColor, this.highlightColor});
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +30,11 @@ class ShimmerContainer extends StatelessWidget {
 
   const ShimmerContainer(
       {super.key,
-        required this.width,
-        required this.height,
-        this.baseColor,
-        this.highlightColor,
-        this.borderRadius = 20.0});
+      required this.width,
+      required this.height,
+      this.baseColor,
+      this.highlightColor,
+      this.borderRadius = 20.0});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,8 @@ class ShimmerContainer extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius),
-          color: baseColor ?? theme.scaffoldBackgroundColor,),
+          color: baseColor ?? theme.scaffoldBackgroundColor,
+        ),
       ),
     );
   }
@@ -58,7 +59,7 @@ class ShimmerLine extends StatelessWidget {
   final Color? baseColor;
   final Color? highlightColor;
 
-  const ShimmerLine({super.key,  this.baseColor, this.highlightColor});
+  const ShimmerLine({super.key, this.baseColor, this.highlightColor});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,7 @@ class ShimmerMultipleLines extends StatelessWidget {
   final Color? highlightColor;
 
   const ShimmerMultipleLines(
-      {super.key,  required this.lines, this.baseColor, this.highlightColor});
+      {super.key, required this.lines, this.baseColor, this.highlightColor});
 
   @override
   Widget build(BuildContext context) {
@@ -91,11 +92,11 @@ class ShimmerMultipleLines extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: List.generate(
           lines,
-              (index) => Padding(
-            padding: const EdgeInsets.only(bottom: 6.0),
-            child: ShimmerLine(
-                baseColor: baseColor, highlightColor: highlightColor),
-          )),
+          (index) => Padding(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: ShimmerLine(
+                    baseColor: baseColor, highlightColor: highlightColor),
+              )),
     );
   }
 }

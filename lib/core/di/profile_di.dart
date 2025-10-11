@@ -1,5 +1,3 @@
-
-
 import 'package:get_it/get_it.dart';
 import 'package:pixabay_web/features/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:pixabay_web/features/profile/data/repository/profile_repository.dart';
@@ -10,16 +8,16 @@ import 'package:pixabay_web/features/profile/ui/bloc/profile_bloc.dart';
 void invokeProfileDI({required GetIt locator}) {
   // data source
   locator.registerLazySingleton<ProfileRemoteDataSource>(
-          () => ProfileRemoteDataSourceImpl(dio: locator()));
+      () => ProfileRemoteDataSourceImpl(dio: locator()));
 
   // repository
   locator.registerLazySingleton<ProfileRepository>(
-          () => ProfileRepositoryImpl(remoteDataSource: locator()));
+      () => ProfileRepositoryImpl(remoteDataSource: locator()));
 
   // use case
-  locator.registerLazySingleton(() => SubmitUserInfoUseCase(repository: locator()));
+  locator.registerLazySingleton(
+      () => SubmitUserInfoUseCase(repository: locator()));
 
   // bloc
   locator.registerFactory(() => ProfileBloc(useCase: locator()));
-
 }

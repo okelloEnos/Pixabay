@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pixabay_web/features/dashboard/domain/entity/photo_entity.dart';
 import 'package:pixabay_web/features/dashboard/domain/usecase/fetch_trending_photos_use_case.dart';
-import 'package:pixabay_web/features/dashboard/ui/bloc/trending_photo_event.dart';
+import 'package:pixabay_web/features/dashboard/ui/bloc/trending_photo/trending_photo_event.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

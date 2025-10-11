@@ -1,6 +1,5 @@
 part of 'sidebar_bloc.dart';
 
-@immutable
 sealed class SidebarState {}
 
 final class SidebarCollapsed extends SidebarState {}

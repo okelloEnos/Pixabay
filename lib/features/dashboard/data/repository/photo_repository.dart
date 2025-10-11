@@ -10,9 +10,13 @@ class PhotoRepositoryImpl implements PhotoRepository {
       : _remoteDataSource = remoteDataSource;
 
   @override
-  Future<List<PhotoEntity>> fetchPhotos({required String? query, required int? page, required int? perPage}) async {
+  Future<List<PhotoEntity>> fetchPhotos(
+      {required String? query,
+      required int? page,
+      required int? perPage}) async {
     List<PhotoEntity> photos = [];
-    var results = await _remoteDataSource.fetchPhotos(query: query, page: page, perPage: perPage);
+    var results = await _remoteDataSource.fetchPhotos(
+        query: query, page: page, perPage: perPage);
     photos = results.map((e) => PhotoModel.fromJson(e)).toList();
     return photos;
   }

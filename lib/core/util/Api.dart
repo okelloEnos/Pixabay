@@ -4,13 +4,12 @@ part 'Api.g.dart';
 
 @Envied(path: 'api.env')
 abstract class Api {
-
-  static const String pixabayBaseUrl = "https://pixabay-proxy-server.vercel.app";
+  static const String pixabayBaseUrl =
+      "https://pixabay-proxy-server.vercel.app";
 
   static const String jsonBaseUrl = "https://jsonplaceholder.typicode.com";
 
   /// ACCESS KEY
   @EnviedField(varName: 'ACCESS_KEY', defaultValue: '', obfuscate: true)
   static final String accessKey = _Api.accessKey;
-
 }

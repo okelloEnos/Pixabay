@@ -1,6 +1,5 @@
 part of 'sidebar_bloc.dart';
 
-@immutable
 sealed class SidebarEvent {}
 
 final class ToggleSidebarEvent extends SidebarEvent {}
