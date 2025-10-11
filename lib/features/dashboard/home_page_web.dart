@@ -102,6 +102,22 @@ class _HomePageWebState extends State<HomePageWeb>
                                       size: Size(300, 300)),
                       const SizedBox(height: 16.0),
                       Text(state.message, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14.0)),
+                      const SizedBox(height: 32.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<TrendingPhotoBloc>().add(FetchTrendingPhotos());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          minimumSize: const Size(150, 45.0),
+                          textStyle: const TextStyle(fontSize: 16.0),
+                        ),
+                        child: const Text("Retry"),
+                      )
                     ],
                   )
                   : GridView.builder(

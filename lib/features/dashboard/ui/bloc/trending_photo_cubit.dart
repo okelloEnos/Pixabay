@@ -49,7 +49,7 @@ class TrendingPhotoBloc extends Bloc<TrendingPhotoEvent, TrendingPhotoState> {
   Future<void> _onFetchTrendingPhotos(
       FetchTrendingPhotos event, Emitter<TrendingPhotoState> emit) async {
     bool hasReachedMax = false;
-    if (state is TrendingPhotoInitial) {
+    if (state is TrendingPhotoInitial || state is TrendingPhotoError) {
       emit(TrendingPhotoLoading());
     }
 

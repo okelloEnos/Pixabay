@@ -63,7 +63,7 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
       FetchAllPhotosEvent event, Emitter<GalleryState> emit) async {
     bool hasReachedMax = false;
     bool isSearch = (event.query ?? "").isNotEmpty;
-    if (state is GalleryInitial) {
+    if (state is GalleryInitial || state is GalleryError) {
       emit(GalleryLoading());
     }
 
