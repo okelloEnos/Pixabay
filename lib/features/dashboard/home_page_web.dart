@@ -83,10 +83,10 @@ class _HomePageWebState extends State<HomePageWeb>
                 padding: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     // crossAxisCount: widget.maxWidth > 1200 ? 4 : widget.maxWidth > 800 ? 3 : 2,
-                    crossAxisCount: isDesktop(context) ? 4 : isTablet(context) ? 3 : 2,
+                    crossAxisCount: isDesktop(context) ? 4 : isTablet(context) ? 2 : 1,
                     crossAxisSpacing: 14.0,
                     mainAxisSpacing: 14.0,
-                    childAspectRatio: 1.0,
+                    childAspectRatio: isMobile(context) ? 3/1.5 : 1.0,
                   ),
                   itemBuilder: (context, index){
                     PhotoEntity photo = state.photos[index];
@@ -107,10 +107,10 @@ class _HomePageWebState extends State<HomePageWeb>
                   : GridView.builder(
                   padding: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: isDesktop(context) ? 4 : isTablet(context) ? 3 : 2,
+                    crossAxisCount: isDesktop(context) ? 4 : isTablet(context) ? 2 : 1,
                     crossAxisSpacing: 14.0,
                     mainAxisSpacing: 14.0,
-                    childAspectRatio: 1.0,
+                    childAspectRatio: isMobile(context) ? 3/1.5 : 1.0,
                   ),
                   itemBuilder: (context, index){
                     return const PhotoCardLoading();
@@ -169,7 +169,7 @@ class _PhotoCardState extends State<PhotoCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AspectRatio(
-                aspectRatio: 16 / 9,
+                aspectRatio: isMobile(context) ? 18 / 6  : 16 / 9,
                 child: widget.photo.thumbnail != null ? CachedNetworkImage(imageUrl: widget.photo.thumbnail!, fit: BoxFit.cover,
                   fadeInDuration: const Duration(milliseconds: 400),
                   fadeOutDuration: const Duration(milliseconds: 200),
@@ -205,50 +205,62 @@ class PhotoCardLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1.0,
-      surfaceTintColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AspectRatio(
-            aspectRatio: 16 / 9,
-            child: ShimmerWidget(child: Image.asset("assets/images/pixabay.png", color: Colors.grey.shade200,)),
-          ),
-          Container(
-            height: 1.0,
-            width: double.infinity,
-            color: Colors.grey.shade100,
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Row(
-                    mainAxisSize: MainAxisSize.min,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final tags =  <String>["", "", "", "", "", "", "", "", "", "", "", ""];
+        final maxVisible = constraints.maxWidth >= 350 ? 6
+            : constraints.maxWidth >= 260 ? 5
+            : constraints.maxWidth >= 200 ? 4
+            : 1;
+
+        final visible = tags.take(maxVisible).toList();
+
+        return Card(
+          elevation: 1.0,
+          surfaceTintColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AspectRatio(
+                aspectRatio: isMobile(context) ? 18 / 6  : 16 / 9,
+                child: ShimmerWidget(child: Image.asset("assets/images/pixabay.png", color: Colors.grey.shade200,)),
+              ),
+              Container(
+                height: 1.0,
+                width: double.infinity,
+                color: Colors.grey.shade100,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ShimmerContainer(width: 16.0, height: 14.0, borderRadius: 4.0,),
-                      SizedBox(width: 4.0),
-                      ShimmerContainer(width: 100.0, height: 12.0, borderRadius: 4.0),
+                      const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ShimmerContainer(width: 16.0, height: 14.0, borderRadius: 4.0,),
+                          SizedBox(width: 4.0),
+                          ShimmerContainer(width: 100.0, height: 12.0, borderRadius: 4.0),
+                        ],
+                      ),
+                      const SizedBox(height: 16.0),
+                      Wrap(
+                        spacing: 10.0,
+                        runSpacing: 6.0,
+                        children: visible.map((t) => const ShimmerContainer(width: 50.0, height: 12.0, borderRadius: 4.0,),).toList(),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 16.0),
-                  Wrap(
-                    spacing: 10.0,
-                    runSpacing: 6.0,
-                    children: ["", "", "", "", "", "", "", ""].take(8).map((t) => const ShimmerContainer(width: 50.0, height: 12.0, borderRadius: 4.0,),).toList(),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    );;
+        );
+      }
+    );
   }
 }
 
@@ -261,12 +273,10 @@ class CustomChips extends StatelessWidget {
     return LayoutBuilder(
         builder: (context, constraints) {
           final tags = (photo.tags ?? <String>[]);
-          final maxVisible =
-          constraints.maxWidth > 350
-              ? 8
-              : constraints.maxWidth > 265
-              ? 5
-              : 3;
+          final maxVisible = constraints.maxWidth >= 350 ? 6
+              : constraints.maxWidth >= 260 ? 5
+              : constraints.maxWidth >= 200 ? 4
+              : 1;
 
           final visible = tags.take(maxVisible).toList();
           final overflowCount = tags.length - visible.length;
@@ -289,8 +299,8 @@ class CustomChips extends StatelessWidget {
                   const SizedBox(width: 6.0),
                   Expanded(
                     child: Text(
-                      // photo.photographerName ?? 'Unknown',
-                      "W: ${constraints.maxWidth.toInt()}",
+                      photo.photographerName ?? 'Unknown',
+                      // "W: ${constraints.maxWidth.toInt()}",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontSize: 16.0,
                       ),

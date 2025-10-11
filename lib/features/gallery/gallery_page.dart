@@ -107,13 +107,10 @@ class _GalleryPageState extends State<GalleryPage> {
                   GridView.builder(
                       padding: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        // crossAxisCount:
-                        // // widget.maxWidth > 1200 ? 4 : widget.maxWidth > 800 ? 3 :
-                        // 2,
-                        crossAxisCount: isDesktop(context) ? 4 : isTablet(context) ? 3 : 2,
+                        crossAxisCount: isDesktop(context) ? 4 : isTablet(context) ? 2 : 1,
                         crossAxisSpacing: 14.0,
                         mainAxisSpacing: 14.0,
-                        childAspectRatio: 1.0,
+                        childAspectRatio: isMobile(context) ? 3/1.5 : 1.0,
                       ),
                       itemBuilder: (context, index){
                         PhotoEntity photo = state.photos[index];
@@ -134,10 +131,10 @@ class _GalleryPageState extends State<GalleryPage> {
                       : GridView.builder(
                       padding: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: isDesktop(context) ? 4 : isTablet(context) ? 3 : 2,
+                        crossAxisCount: isDesktop(context) ? 4 : isTablet(context) ? 2 : 1,
                         crossAxisSpacing: 14.0,
                         mainAxisSpacing: 14.0,
-                        childAspectRatio: 1.0,
+                        childAspectRatio: isMobile(context) ? 3/1.5 : 1.0,
                       ),
                       itemBuilder: (context, index){
                         return const PhotoCardLoading();
