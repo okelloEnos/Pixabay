@@ -105,7 +105,8 @@ class Dashboard extends StatelessWidget {
                   body: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: Theme.of(context).colorScheme.onTertiary,
+                      // color: Colors.green,
                       child: Align(
                           alignment: Alignment.center,
                           child: Row(
@@ -121,21 +122,21 @@ class Dashboard extends StatelessWidget {
                                         : Padding(
                                             padding: const EdgeInsets.only(top: 50),
                                             child: child),
-                                    // Positioned(
-                                    //   top: 5.0,
-                                    //   right: 0,
-                                    //   child: Padding(
-                                    //     padding: const EdgeInsets.symmetric(horizontal: 12),
-                                    //     child: Center(
-                                    //       child: CustomThemeSwitch(
-                                    //         isDarkMode: Theme.of(context).brightness == Brightness.dark,
-                                    //         onChanged: (f){
-                                    //           context.read<PixabayThemeCubit>().toggleTheme();
-                                    //         },
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ),
+                                    Positioned(
+                                      top: 5.0,
+                                      right: 0.0,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Center(
+                                          child: CustomThemeSwitch(
+                                            isDarkMode: Theme.of(context).brightness == Brightness.dark,
+                                            onChanged: (f){
+                                              context.read<PixabayThemeCubit>().toggleTheme();
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),

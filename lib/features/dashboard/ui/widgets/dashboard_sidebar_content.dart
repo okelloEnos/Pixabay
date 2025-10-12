@@ -62,7 +62,7 @@ class _DashboardSideBarContentState
                       height: 50) : Image.asset(
                       'assets/images/pixabay.png',
                       width: 150,
-                      height: 150, color: Colors.white),
+                      height: 150, color: Theme.of(context).colorScheme.onPrimary),
                   ),
                 ),
               ),

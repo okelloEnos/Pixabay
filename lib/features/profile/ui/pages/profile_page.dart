@@ -47,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
         constraints: const BoxConstraints(maxWidth: 500),
         child: Card(
           elevation: 3,
-          surfaceTintColor: Colors.white,
+          surfaceTintColor: Theme.of(context).colorScheme.onTertiary,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           margin: const EdgeInsets.all(16.0),
@@ -58,14 +58,14 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const SizedBox(height: 36.0),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
                     "Please fill all fields to submit your profile.",
                     style: TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.w500,
-                        color: Colors.grey),
+                        color: Theme.of(context).hintColor),
                   ),
                 ),
                 const SizedBox(height: 24.0),
@@ -73,26 +73,25 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextField(
                     controller: _fullNameController,
-                    style: const TextStyle(
-                        fontSize: 14.0, fontWeight: FontWeight.normal),
+                    style: TextStyle(
+                        fontSize: 14.0, fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.tertiary),
+                    cursorColor: Theme.of(context).colorScheme.onPrimaryContainer,
                     decoration: InputDecoration(
-                      fillColor: backgroundColor,
+                      fillColor: Theme.of(context).colorScheme.primaryContainer,
                       filled: true,
                       labelText: ' Enter your full name ',
                       labelStyle: TextStyle(
                           fontSize: 14.0,
-                          color: Colors.grey.shade400,
+                          color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),
                           fontWeight: FontWeight.normal),
                       prefixIcon: Icon(Icons.person_outline,
-                          size: 18.0, color: Colors.grey.shade300),
+                          size: 18.0, color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                           borderSide: BorderSide.none),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        // borderSide: BorderSide.none
-                        borderSide:
-                            BorderSide(color: Colors.grey.shade200, width: 1.5),
+                        borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimaryContainer, width: 1.5),
                       ),
                     ),
                   ),
@@ -102,26 +101,25 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextField(
                     controller: _emailController,
-                    style: const TextStyle(
-                        fontSize: 14.0, fontWeight: FontWeight.normal),
+                    style: TextStyle(
+                        fontSize: 14.0, fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.tertiary),
+                    cursorColor: Theme.of(context).colorScheme.onPrimaryContainer,
                     decoration: InputDecoration(
-                      fillColor: backgroundColor,
+                      fillColor: Theme.of(context).colorScheme.primaryContainer,
                       filled: true,
                       labelText: 'Enter your email address',
                       labelStyle: TextStyle(
                           fontSize: 14.0,
-                          color: Colors.grey.shade400,
+                          color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),
                           fontWeight: FontWeight.normal),
                       prefixIcon: Icon(Icons.email_outlined,
-                          size: 18.0, color: Colors.grey.shade300),
+                          size: 18.0, color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                           borderSide: BorderSide.none),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        // borderSide: BorderSide.none
-                        borderSide:
-                            BorderSide(color: Colors.grey.shade200, width: 1.5),
+                        borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimaryContainer, width: 1.5),
                       ),
                     ),
                   ),
@@ -130,25 +128,24 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: DropdownButtonFormField<String>(
-                    style: const TextStyle(fontSize: 14.0),
+                    style: TextStyle(
+                        fontSize: 14.0, fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.tertiary),
                     decoration: InputDecoration(
-                      fillColor: backgroundColor,
+                      fillColor: Theme.of(context).colorScheme.primaryContainer,
                       filled: true,
                       labelText: 'Select your favourite category',
                       labelStyle: TextStyle(
                           fontSize: 14.0,
-                          color: Colors.grey.shade400,
+                          color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),
                           fontWeight: FontWeight.normal),
                       prefixIcon: Icon(Icons.favorite_border,
-                          size: 18.0, color: Colors.grey.shade300),
+                          size: 18.0, color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                           borderSide: BorderSide.none),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        // borderSide: BorderSide.none
-                        borderSide:
-                            BorderSide(color: Colors.grey.shade200, width: 1.5),
+                        borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimaryContainer, width: 1.5),
                       ),
                     ),
                     value: favouriteCategory,
@@ -165,18 +162,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: TextField(
                     controller: _passwordController,
                     obscureText: !showPassword,
-                    style: const TextStyle(
-                        fontSize: 14.0, fontWeight: FontWeight.normal),
+                    style: TextStyle(
+                        fontSize: 14.0, fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.tertiary),
+                    cursorColor: Theme.of(context).colorScheme.onPrimaryContainer,
                     decoration: InputDecoration(
-                      fillColor: backgroundColor,
+                      fillColor: Theme.of(context).colorScheme.primaryContainer,
                       filled: true,
                       labelText: 'Enter your password',
                       labelStyle: TextStyle(
                           fontSize: 14.0,
-                          color: Colors.grey.shade400,
+                          color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),
                           fontWeight: FontWeight.normal),
                       prefixIcon: Icon(Icons.lock_outline_rounded,
-                          size: 18.0, color: Colors.grey.shade300),
+                          size: 18.0, color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),),
                       suffixIcon: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
@@ -190,16 +188,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
                                 size: 18.0,
-                                color: Colors.grey.shade300)),
+                              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),)),
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                           borderSide: BorderSide.none),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        // borderSide: BorderSide.none
-                        borderSide:
-                            BorderSide(color: Colors.grey.shade200, width: 1.5),
+                        borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimaryContainer, width: 1.5),
                       ),
                     ),
                   ),
@@ -210,18 +206,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: TextField(
                     controller: _confirmPasswordController,
                     obscureText: !showConfirmPassword,
-                    style: const TextStyle(
-                        fontSize: 14.0, fontWeight: FontWeight.normal),
+                    style: TextStyle(
+                        fontSize: 14.0, fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.tertiary),
+                    cursorColor: Theme.of(context).colorScheme.onPrimaryContainer,
                     decoration: InputDecoration(
-                      fillColor: backgroundColor,
+                      fillColor: Theme.of(context).colorScheme.primaryContainer,
                       filled: true,
                       labelText: 'Confirm your password',
                       labelStyle: TextStyle(
                           fontSize: 14.0,
-                          color: Colors.grey.shade400,
+                          color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),
                           fontWeight: FontWeight.normal),
                       prefixIcon: Icon(Icons.lock_outline_rounded,
-                          size: 18.0, color: Colors.grey.shade300),
+                          size: 18.0, color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),),
                       suffixIcon: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
@@ -235,16 +232,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
                                 size: 18.0,
-                                color: Colors.grey.shade300)),
+                              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),)),
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                           borderSide: BorderSide.none),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        // borderSide: BorderSide.none
-                        borderSide:
-                            BorderSide(color: Colors.grey.shade200, width: 1.5),
+                        borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimaryContainer, width: 1.5),
                       ),
                     ),
                   ),
@@ -276,7 +271,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       "Submitting profile...",
                                       style: TextStyle(
                                         fontSize: 14.0,
-                                        color: Colors.grey.shade400,
+                                        color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4),
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -347,8 +342,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                         SubmitUserInfoEvent(profile: profile));
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue,
-                                    foregroundColor: Colors.white,
+                                    backgroundColor: Theme.of(context).colorScheme.primary,
+                                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),

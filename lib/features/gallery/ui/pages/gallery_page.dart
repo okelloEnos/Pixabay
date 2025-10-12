@@ -42,17 +42,22 @@ class _GalleryPageState extends State<GalleryPage> {
                     const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
                 child: TextField(
                   controller: _searchController,
-                  style: const TextStyle(fontSize: 14.0),
+                  style: TextStyle(fontSize: 14.0, color: Theme.of(context).colorScheme.tertiary),
+                  cursorColor: Theme.of(context).colorScheme.onPrimaryContainer,
                   decoration: InputDecoration(
                     hintText: 'Search photos....',
                     prefixIcon:
-                        Icon(Icons.search, color: Colors.grey[400], size: 20.0),
+                        Icon(Icons.search, color: Theme.of(context).colorScheme.tertiary.withOpacity(0.4), size: 20.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide: BorderSide.none,
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimaryContainer, width: 1.5),
+                    ),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Theme.of(context).colorScheme.primaryContainer,
                   ),
                   onSubmitted: (value) {
                     context

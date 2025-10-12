@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pixabay_web/core/constants/colors.dart';
 import 'package:pixabay_web/features/dashboard/domain/entity/photo_entity.dart';
 import 'package:pixabay_web/features/dashboard/domain/usecase/fetch_trending_photos_use_case.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -45,7 +46,10 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
               scrollController.position.maxScrollExtent &&
           !scrollController.position.outOfRange) {
         if (state is GalleryLoaded) {
-          Fluttertoast.showToast(msg: "Loading more photos : $latestQuery");
+          Fluttertoast.showToast(
+              backgroundColor: primaryColor,
+              textColor: whiteColor,
+              msg: "Loading more photos : $latestQuery");
           add(FetchAllPhotosEvent(query: latestQuery));
         }
       }

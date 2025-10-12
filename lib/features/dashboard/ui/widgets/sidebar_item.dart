@@ -33,9 +33,9 @@ class SideBarItem extends StatelessWidget {
                   ? Container(
                       width: 4.0,
                       height: double.infinity,
-                      decoration: const BoxDecoration(
-                          color: whiteColor,
-                          borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(16),
                               bottomRight: Radius.circular(16))),
                     )
@@ -50,7 +50,7 @@ class SideBarItem extends StatelessWidget {
                       vertical: 24, horizontal: isCollapsed ? 4 : 32),
                   decoration: BoxDecoration(
                       color: isActive
-                          ? whiteColor.withOpacity(0.1)
+                          ? Theme.of(context).colorScheme.onPrimary.withOpacity(0.1)
                           : Colors.transparent,
                       borderRadius:
                           isActive ? BorderRadius.circular(8.0) : null,
@@ -58,7 +58,7 @@ class SideBarItem extends StatelessWidget {
                           ? null
                           : Border(
                               bottom: BorderSide(
-                                  color: whiteColor.withOpacity(0.1),
+                                  color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.1),
                                   width: 1))),
                   child: isActive
                       ? Row(
@@ -71,7 +71,7 @@ class SideBarItem extends StatelessWidget {
                               bottomBarModel.icon,
                               width: 24,
                               height: 24,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             )
                                 .animate(autoPlay: true)
                                 .moveX(
@@ -98,7 +98,7 @@ class SideBarItem extends StatelessWidget {
                                               .textTheme
                                               .bodyMedium!
                                               .fontWeight,
-                                          color: whiteColor))
+                                          color: Theme.of(context).colorScheme.onPrimary))
                                   .animate(
                                       autoPlay: true,
                                       delay: const Duration(milliseconds: 300))
@@ -127,7 +127,7 @@ class SideBarItem extends StatelessWidget {
                               bottomBarModel.icon,
                               width: 24,
                               height: 24,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             ),
                             SizedBox(width: isCollapsed ? 0 : 16),
                             Visibility(
@@ -142,7 +142,7 @@ class SideBarItem extends StatelessWidget {
                                           .textTheme
                                           .bodyMedium!
                                           .fontWeight,
-                                      color: whiteColor)),
+                                      color: Theme.of(context).colorScheme.onPrimary)),
                             )
                           ],
                         ),

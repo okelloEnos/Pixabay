@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:pixabay_web/core/constants/colors.dart';
 import 'package:pixabay_web/features/dashboard/domain/entity/photo_entity.dart';
 import 'package:pixabay_web/features/dashboard/domain/usecase/fetch_trending_photos_use_case.dart';
 import 'package:pixabay_web/features/dashboard/ui/bloc/trending_photo/trending_photo_event.dart';
@@ -32,7 +33,10 @@ class TrendingPhotoBloc extends Bloc<TrendingPhotoEvent, TrendingPhotoState> {
               scrollController.position.maxScrollExtent &&
           !scrollController.position.outOfRange) {
         if (state is TrendingPhotoLoaded) {
-          Fluttertoast.showToast(msg: "Loading more photos");
+          Fluttertoast.showToast(
+              backgroundColor: primaryColor,
+              textColor: whiteColor,
+              msg: "Loading more photos");
           add(FetchTrendingPhotos());
         }
       }

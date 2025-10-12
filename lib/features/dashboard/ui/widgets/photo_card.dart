@@ -21,73 +21,74 @@ class _PhotoCardState extends State<PhotoCard> {
   @override
   Widget build(BuildContext context) {
     final photo = widget.photo;
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      transform:
-          hovering ? Matrix4.identity().scaled(1.03) : Matrix4.identity(),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: hovering ? 12 : 4,
-            offset: const Offset(0, 4),
-          )
-        ],
-      ),
-      child: Card(
-        elevation: 1.0,
-        surfaceTintColor: Theme.of(context).colorScheme.onPrimary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          hoverColor: Colors.black12,
-          onHover: (isHovering) {
-            setState(() {
-              hovering = isHovering;
-            });
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AspectRatio(
-                aspectRatio: isMobile(context) ? 18 / 6 : 16 / 9,
-                child: widget.photo.thumbnail != null
-                    ? CachedNetworkImage(
-                        imageUrl: widget.photo.thumbnail!,
-                        fit: BoxFit.cover,
-                        fadeInDuration: const Duration(milliseconds: 400),
-                        fadeOutDuration: const Duration(milliseconds: 200),
-                        errorWidget: (_, __, ___) {
-                          return Image.asset(
-                            "assets/images/pixabay.png",
-                            color: Colors.grey.shade100,
-                          );
-                        },
-                        placeholder: (_, __) {
-                          return const ShimmerContainer(
-                            width: double.infinity,
-                            height: double.infinity,
-                            borderRadius: 8.0,
-                          );
-                        },
-                      )
-                    : Image.asset(
-                        "assets/images/pixabay.png",
-                        color: Colors.grey.shade100,
-                      ),
-              ),
-              Container(
-                height: 1.0,
-                width: double.infinity,
-                color: Theme.of(context).hintColor.withOpacity(0.1),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: AuthorAndChips(photo: photo),
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => hovering = true),
+      onExit: (_) => setState(() => hovering = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        transform:
+            hovering ? Matrix4.identity().scaled(1.03) : Matrix4.identity(),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: hovering ? 12 : 4,
+              offset: const Offset(0, 4),
+            )
+          ],
+        ),
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: Card(
+            elevation: 1.0,
+            surfaceTintColor: Theme.of(context).colorScheme.onPrimary,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AspectRatio(
+                  aspectRatio: isMobile(context) ? 18 / 5 : 16 / 9,
+                  child: widget.photo.thumbnail != null
+                      ? CachedNetworkImage(
+                          imageUrl: widget.photo.thumbnail!,
+                          fit: BoxFit.cover,
+                          fadeInDuration: const Duration(milliseconds: 400),
+                          fadeOutDuration: const Duration(milliseconds: 200),
+                          errorWidget: (_, __, ___) {
+                            return Image.asset(
+                              "assets/images/pixabay.png",
+                              color: Colors.grey.shade100,
+                            );
+                          },
+                          placeholder: (_, __) {
+                            return const ShimmerContainer(
+                              width: double.infinity,
+                              height: double.infinity,
+                              borderRadius: 8.0,
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          "assets/images/pixabay.png",
+                          color: Colors.grey.shade100,
+                        ),
                 ),
-              ),
-            ],
+                Container(
+                  height: 1.0,
+                  width: double.infinity,
+                  color: Theme.of(context).hintColor.withOpacity(0.1),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AuthorAndChips(photo: photo),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
