@@ -91,6 +91,19 @@ class Dashboard extends StatelessWidget {
                               ),
                             );
                           }),
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Center(
+                          child: CustomThemeSwitch(
+                            isDarkMode: Theme.of(context).brightness == Brightness.dark,
+                            onChanged: (f){
+                              context.read<PixabayThemeCubit>().toggleTheme();
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                         )
                       : null,
                   drawer: isMobile(context)
@@ -122,7 +135,7 @@ class Dashboard extends StatelessWidget {
                                         : Padding(
                                             padding: const EdgeInsets.only(top: 50),
                                             child: child),
-                                    Positioned(
+                                    isMobile(context) ? const SizedBox.shrink() : Positioned(
                                       top: 5.0,
                                       right: 0.0,
                                       child: Padding(
